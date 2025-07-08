@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAMPUS GIG</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <img src="Assets/campusglogo1.jpg" alt="Campus Gig Logo" class="logo">
+        <div class="header-content">
+            <h1>CAMPUS GIG</h1>
+            <p class="tagline">Connecting students with skilled students for services at Kwara State University</p>
+        </div>
+    </header>
+    <main>
+        <section class="hero">
+            <h2>Need help with tasks or want to offer your skills?</h2>
+            <p>
+                From fixing home appliances, graphics design, electrical repairs, logistics, tutoring, to cleaning—CAMPUS GIG connects you with the right student for the job!
+            </p>
+        </section>
+
+        <!-- Hire a Student Section -->
+        <section class="hire-student">
+            <h2>Hire a Student for a Service</h2>
+            <p>Fill out the form below to hire a skilled student for your task.</p>
+            <form class="hire-form" action="#" method="POST">
+                <label for="service">Select Service:</label>
+                <select id="service" name="service" required>
+                    <option value="">-- Choose a Service --</option>
+                    <option value="Home Appliance Repairs">Home Appliance Repairs</option>
+                    <option value="Graphics Design">Graphics Design</option>
+                    <option value="Electrical Fixing">Electrical Fixing</option>
+                    <option value="Logistics & Delivery">Logistics & Delivery</option>
+                    <option value="Tutoring">Tutoring</option>
+                    <option value="Cleaning Services">Cleaning Services</option>
+                </select>
+
+                <label for="details">Task Details:</label>
+                <textarea id="details" name="details" rows="4" placeholder="Describe what you need..." required></textarea>
+
+                <label for="location">Choose your area on campus:</label>
+                <select id="location" name="location" required>
+                    <option value="">-- Select Location --</option>
+                    <option value="Westend">Westend</option>
+                    <option value="Safari">Safari</option>
+                    <option value="Dara side">Dara side</option>
+                </select>
+
+                <label for="contact">Your Contact (Email or Phone):</label>
+                <input type="text" id="contact" name="contact" required>
+
+                <button type="submit">Hire Now</button>
+            </form>
+        </section>
+  <!-- Services Section -->
+        <section class="services">
+            <h2>Our Services</h2>
+            <ul>
+                <li>Home Appliance Repairs</li>
+                <li>Graphics Design</li>
+                <li>Electrical Fixing</li>
+                <li>Logistics & Delivery</li>
+                <li>Tutoring</li>
+                <li>Cleaning Services</li>
+            </ul>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="how-it-works">
+            <h2>How It Works</h2>
+            <ol>
+                <li><strong>Post a Task:</strong> Describe the help you need or the service you offer.</li>
+                <li><strong>Connect:</strong> Get matched with a skilled student on campus.</li>
+                <li><strong>Get It Done:</strong> Meet up and complete the task easily and safely.</li>
+            </ol>
+        </section>
+
+        <!-- About Us Section -->
+        <section class="about">
+            <h2>About Campus Gig</h2>
+            <p>
+                Campus Gig is a student-powered platform dedicated to making life easier at Kwara State University. We empower students to earn and learn by connecting them with peers who need their skills.
+            </p>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact">
+            <h2>Contact Us</h2>
+            <p>Have questions or suggestions? Reach out to us!</p>
+            <form action="#" method="POST">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+
+                <button type="submit">Send Message</button>
+            </form>
+        </section>
+
+        <section class="live-stats">
+            <h2>Live Campus Gig Stats</h2>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <span class="stat-number" id="visitCount">0</span>
+                    <span class="stat-label">Today's Visits</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number" id="tasksHelped">0</span>
+                    <span class="stat-label">Tasks Helped With Today</span>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <p>&copy; 2025 CAMPUS GIG. All rights reserved.</p>
+    </footer>
+
+    <script>
+    // Simple localStorage-based demo for visits and tasks helped (for real use, connect to backend)
+    document.addEventListener('DOMContentLoaded', function() {
+        // Visits
+        const visitKey = 'campusGigVisitDate';
+        const countKey = 'campusGigVisitCount';
+        const today = new Date().toISOString().slice(0,10);
+        let visitDate = localStorage.getItem(visitKey);
+        let visitCount = localStorage.getItem(countKey);
+
+        if (visitDate !== today) {
+            visitDate = today;
+            visitCount = 1;
+        } else {
+            visitCount = parseInt(visitCount || '0', 10) + 1;
+        }
+        localStorage.setItem(visitKey, visitDate);
+        localStorage.setItem(countKey, visitCount);
+        document.getElementById('visitCount').textContent = visitCount;
+
+        // Tasks Helped (simulate random for demo)
+        let tasksHelped = localStorage.getItem('campusGigTasksHelped');
+        let tasksDate = localStorage.getItem('campusGigTasksDate');
+        if (tasksDate !== today) {
+            tasksHelped = Math.floor(Math.random() * 10) + 1;
+            localStorage.setItem('campusGigTasksDate', today);
+            localStorage.setItem('campusGigTasksHelped', tasksHelped);
+        }
+        document.getElementById('tasksHelped').textContent = tasksHelped;
+    });
+
+    document.querySelector('.hire-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Get form values
+        const service = document.getElementById('service').value;
+        const details = document.getElementById('details').value;
+        const location = document.getElementById('location').value;
+        const contact = document.getElementById('contact').value;
+
+        // WhatsApp number (in international format, e.g., 2348012345678)
+        const phone = '2349168639644';
+        const message = `New Hire Request:%0AService: ${service}%0ADetails: ${details}%0ALocation: ${location}%0AContact: ${contact}`;
+
+        // Open WhatsApp
+        window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+
+        // Show notification
+        alert('Your hire request is being sent to Campus Gig on WhatsApp!');
+    });
+    </script>
+</body>
+</html>
